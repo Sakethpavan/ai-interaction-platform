@@ -1,6 +1,5 @@
 import webbrowser
 import os
-import shutil
 
 def execute_tool(tool_name, args):
     if tool_name == "open_app":
@@ -17,23 +16,12 @@ def execute_tool(tool_name, args):
 def open_app(app_name: str):
     app = app_name.lower()
 
-    if app in ["chrome", "browser"]:
-        # check if chrome exists
-        if shutil.which("chrome"):
+    if app in ["chrome", "browser", "brave"]:
+        if app == "brave":
+            os.system("start brave")
+            return "Brave opened"
+        else:
             os.system("start chrome")
             return "Chrome opened"
-
-        # fallback to brave
-        if shutil.which("brave"):
-            os.system("start brave")
-            return "Brave opened"
-
-        return "No supported browser found"
-
-    if app == "brave":
-        if shutil.which("brave"):
-            os.system("start brave")
-            return "Brave opened"
-        return "Brave not installed"
 
     return f"Unknown app: {app}"
